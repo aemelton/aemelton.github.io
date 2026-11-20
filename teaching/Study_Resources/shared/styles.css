@@ -1,0 +1,76 @@
+:root {
+  --ink: #26352f;
+  --muted: #66756e;
+  --paper: #f7f8f4;
+  --card: #ffffff;
+  --line: #dce4dd;
+  --green: #28664f;
+  --green-soft: #e9f2ec;
+  --blue: #315f86;
+  --blue-soft: #eaf1f7;
+  --shadow: 0 10px 30px rgba(31, 55, 42, .07);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+a { color: inherit; }
+.site-header {
+  min-height: 68px; padding: 14px max(22px, calc((100% - 1080px)/2));
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  background: rgba(255,255,255,.9); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 750; text-decoration: none; letter-spacing: -.02em; }
+.header-note, .back-link { color: var(--muted); font-size: .9rem; text-decoration: none; }
+.container { width: min(100% - 36px, 1040px); margin: 0 auto; padding: 48px 0 64px; }
+.hero { max-width: 760px; padding: 20px 0 32px; }
+.eyebrow { color: var(--green); font-size: .76rem; font-weight: 800; letter-spacing: .14em; margin: 0 0 12px; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.055em; margin: 0 0 16px; }
+h2 { letter-spacing: -.025em; }
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 690px; margin: 0 0 12px; }
+.course-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; margin: 16px 0 24px; }
+.course-card {
+  display: flex; flex-direction: column; align-items: flex-start; min-height: 250px;
+  padding: 28px; border: 1px solid var(--line); border-radius: 20px;
+  background: var(--card); text-decoration: none; box-shadow: var(--shadow);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.course-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(31,55,42,.11); }
+.course-number { font-size: .8rem; font-weight: 800; letter-spacing: .12em; }
+.course-card h2 { font-size: 1.8rem; line-height: 1.15; margin: 18px 0 8px; }
+.course-card p { color: var(--muted); margin: 0 0 24px; }
+.course-blue { background: var(--blue-soft); border-color: #d7e3ed; }
+.course-blue .course-number { color: var(--blue); }
+.course-green { background: var(--green-soft); border-color: #d6e5d9; }
+.course-green .course-number { color: var(--green); }
+.card-link { font-weight: 750; color: var(--green); margin-top: auto; }
+.small-note { color: var(--muted); font-size: .9rem; }
+.site-footer { border-top: 1px solid var(--line); padding: 24px 18px; text-align: center; color: var(--muted); font-size: .9rem; }
+.site-footer a, .text-link { color: var(--green); font-weight: 650; }
+.breadcrumbs { font-size: .88rem; color: var(--muted); margin-bottom: 22px; }
+.breadcrumbs a { color: var(--green); }
+.course-hero { padding: 30px; border: 1px solid var(--line); border-radius: 20px; margin-bottom: 34px; }
+.course-hero h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 6px; }
+.course-hero .lead { font-size: 1.25rem; font-weight: 650; color: var(--ink); margin-bottom: 10px; }
+.section-heading { font-size: 1.45rem; margin: 0 0 14px; }
+.activity-list { display: grid; gap: 12px; }
+.activity-card {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 20px 22px; border: 1px solid var(--line); border-radius: 15px;
+  background: var(--card); text-decoration: none;
+}
+.activity-card h3 { margin: 0 0 5px; font-size: 1.1rem; }
+.activity-card p { margin: 0; color: var(--muted); max-width: 680px; }
+.activity-link:hover { border-color: #a9c7b2; box-shadow: var(--shadow); }
+.status { flex: 0 0 auto; color: var(--muted); background: #f0f2ef; padding: 5px 10px; border-radius: 999px; font-size: .78rem; }
+@media (max-width: 680px) {
+  .site-header { padding: 13px 18px; }
+  .header-note { display: none; }
+  .container { padding-top: 30px; }
+  .course-grid { grid-template-columns: 1fr; }
+  .course-card { min-height: 210px; }
+  .course-hero { padding: 22px; }
+  .activity-card { align-items: flex-start; flex-direction: column; }
+}
