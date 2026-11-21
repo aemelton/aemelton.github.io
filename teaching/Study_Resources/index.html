@@ -1,39 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Interactive biology practice resources for BIO 100 and BIO 106.">
-  <title>Biology Study Resources</title>
-  <link rel="stylesheet" href="shared/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biology Study Resources | Anthony E. Melton</title>
+  <style>
+    :root {
+      --green: #526b58;
+      --dark: #28332d;
+      --muted: #66716a;
+      --background: #f7f8f5;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--white);
+      padding: 24px 8%;
+      border-bottom: 1px solid #e3e8e2;
+    }
+    header a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 24px;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 12px; }
+    .intro {
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 40px;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .course-card {
+      background: var(--white);
+      border: 1px solid #e1e6df;
+      border-radius: 12px;
+      padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+    .course-card h2 { color: var(--green); margin-top: 0; }
+    .course-card p { color: var(--muted); }
+    .button {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      background: var(--green);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="./">Biology Study Resources</a>
-    <span class="header-note">University biology learning resources</span>
+  <header>
+    <a href="../index.html">← Back to Anthony E. Melton's Website</a>
   </header>
-  <main class="container">
-    <section class="hero">
-      <p class="eyebrow">STUDY • PRACTICE • REVIEW</p>
-      <h1>Biology Study Resources</h1>
-      <p class="lead">Choose your course to explore practice activities, review materials, and interactive study tools.</p>
-    </section>
-    <section class="course-grid" aria-label="Choose a course">
-      <a class="course-card course-blue" href="Bio100/">
-        <span class="course-number">BIO 100</span>
-        <h2>Introductory Biology</h2>
-        <p>Practice and review resources for introductory biology.</p>
-        <span class="card-link">Explore BIO 100 <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="course-card course-green" href="Bio106/">
-        <span class="course-number">BIO 106</span>
-        <h2>Organismal Biology</h2>
-        <p>Practice resources for organismal diversity, anatomy, and biology.</p>
-        <span class="card-link">Explore BIO 106 <span aria-hidden="true">→</span></span>
-      </a>
-    </section>
-    <p class="small-note">Select a course above to get started. Activities are designed to run in your web browser.</p>
+  <main>
+    <h1>Biology Study Resources</h1>
+    <p class="intro">
+      A collection of study guides, interactive activities, and supplemental
+      materials designed to help students review biological concepts,
+      practice identifying structures, and strengthen their understanding
+      of course material.
+    </p>
+    <div class="course-grid">
+      <section class="course-card">
+        <h2>BIO 100</h2>
+        <p>
+          Resources and supplemental materials for introductory biology.
+          Explore course topics, review important concepts, and practice
+          foundational biological knowledge.
+        </p>
+        <a class="button" href="bio100/index.html">Open BIO 100 →</a>
+      </section>
+      <section class="course-card">
+        <h2>BIO 106</h2>
+        <p>
+          Study materials and interactive activities covering biological
+          diversity, organismal biology, anatomy, and classification.
+        </p>
+        <a class="button" href="bio106/index.html">Open BIO 106 →</a>
+      </section>
+    </div>
   </main>
-  <footer class="site-footer">Biology Study Resources</footer>
+  <footer>Biology Study Resources · University of Montevallo</footer>
 </body>
 </html>
