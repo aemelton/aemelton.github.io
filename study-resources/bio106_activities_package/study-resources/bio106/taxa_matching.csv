@@ -1,0 +1,36 @@
+﻿left,right
+Viruses,Acellular infectious agents; genetic material (DNA or RNA) in a protein capsid; reproduce only inside host cells
+Bacteria,Prokaryotic cells; usually have peptidoglycan in the cell wall; enormous metabolic diversity
+Archaea,Prokaryotic cells; cell walls lack bacterial peptidoglycan; distinctive membrane lipids; many metabolic types
+Protists (general grouping),"Informal grouping of diverse eukaryotes that are not land plants, animals, or fungi; mostly unicellular, with some multicellular forms; not a single natural lineage"
+Marchantiophyta (liverworts),Nonvascular land plants; gametophyte is dominant; often have flattened or leafy bodies; reproduce by spores
+Bryophyta (mosses),Nonvascular land plants; gametophyte is dominant; leafy shoots with rhizoids; reproduce by spores
+Anthocerotophyta (hornworts),Nonvascular land plants; gametophyte is dominant; sporophytes are elongated and hornlike
+Lycopodiophyta (lycophytes),Vascular plants with microphylls (small leaves with a single unbranched vein); reproduce by spores
+Monilophyta (ferns and horsetails),Seedless vascular plants; reproduce by spores; many have fronds that begin as coiled fiddleheads
+Cycadophyta (cycads),Gymnosperms with large compound leaves; usually separate pollen- and ovule-producing plants; seeds are not enclosed in fruits
+Ginkgophyta (ginkgo),Gymnosperm lineage represented today by Ginkgo biloba; fan-shaped leaves; seeds are not enclosed in fruits
+Pinophyta (conifers),"Gymnosperms such as pines, spruces, and cypresses; usually bear cones; seeds are not enclosed in fruits"
+Gnetophyta,"Gymnosperms including Ephedra, Gnetum, and Welwitschia; seeds are not enclosed in fruits"
+Magnoliophyta (angiosperms),Flowering plants; ovules are enclosed in carpels; seeds develop within fruits
+Chytridiomycota,"Fungi that commonly produce motile, flagellated zoospores; many live in aquatic or moist environments"
+Blastocladiomycota,Fungi with flagellated reproductive cells; many occur in freshwater or soil; some have alternation of generations
+Neocallimastigomycota,Anaerobic fungi found in digestive tracts of herbivores; help break down plant fiber; produce motile zoospores
+Mucoromycota,Includes many fast-growing molds and arbuscular mycorrhizal fungi; often form coenocytic hyphae
+Zoopagomycota,Fungi that include parasites or predators of small animals and other fungi; often have specialized host interactions
+Glomeromycota,Arbuscular mycorrhizal fungi; form nutrient-exchange associations with roots of many land plants
+Ascomycota (sac fungi),"Sexual spores (ascospores) form inside saclike asci; includes yeasts, morels, truffles, and many lichens"
+Basidiomycota (club fungi),"Sexual spores (basidiospores) form on basidia; includes mushrooms, puffballs, rusts, and smuts"
+Porifera (sponges),Aquatic animals with porous bodies and water-flow canals; lack true tissues and organs; filter feeders
+Cnidaria,"Aquatic animals with cnidocytes (stinging cells); radial or biradial organization; includes jellyfish, corals, and sea anemones"
+Ctenophora (comb jellies),Marine gelatinous animals that move using eight rows of ciliary comb plates; often have colloblasts for prey capture
+Platyhelminthes (flatworms),"Bilaterally symmetrical, dorsoventrally flattened animals; lack a body cavity; many are parasitic"
+Annelida (segmented worms),"Bilaterally symmetrical worms with repeated body segments; includes earthworms, leeches, and polychaetes"
+Mollusca,"Animals typically with a muscular foot, visceral mass, and mantle; many have a shell and a radula"
+Nematoda (roundworms),"Unsegmented, cylindrical worms with a complete digestive tract and a tough external cuticle; many are free-living or parasitic"
+Arthropoda,"Animals with jointed appendages, segmented bodies, and a chitinous exoskeleton that is periodically molted"
+Echinodermata,Marine animals with a water vascular system and tube feet; adults usually have five-part radial symmetry
+Chordata,"At some life stage possess a notochord, dorsal hollow nerve cord, pharyngeal slits or pouches, and a post-anal tail"
+Cephalochordata (lancelets),Chordate subphylum; retain the notochord along the body and into the head region throughout life; lack a vertebral column
+Tunicata (Urochordata; tunicates),Chordate subphylum; larvae show chordate features; adults are usually sessile or planktonic filter feeders enclosed in a tunic
+Vertebrata (vertebrates),"Chordate subphylum; possess a cranium and typically a vertebral column; includes fishes, amphibians, reptiles, birds, and mammals"

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taxa Matching</title>
+<style>
+:root{--ink:#1e293b;--muted:#64748b;--paper:#f7f8f5;--card:#fff;--line:#dbe2e8;--accent:#246b5a;--accent2:#e6f2ed;--bad:#a33b32;--good:#236b49}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1120px;margin:0 auto;padding:28px 18px 56px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:22px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px;letter-spacing:-.04em}.sub{color:var(--muted);margin:0;max-width:700px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 4px 16px #0f172a0a}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.field{display:grid;gap:5px}label{font-size:.83rem;font-weight:650;color:var(--muted)}
+select,button,input{font:inherit;border-radius:10px;border:1px solid var(--line);padding:10px 13px;background:white;color:var(--ink)}
+button{cursor:pointer;font-weight:650}button.primary{background:var(--accent);color:white;border-color:var(--accent)}button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto}.stat{background:#f1f5f3;border-radius:12px;padding:8px 12px;min-width:90px}.stat b{display:block;font-size:1.15rem}.stat span{font-size:.75rem;color:var(--muted)}
+.progress{height:8px;background:#e8edf0;border-radius:20px;overflow:hidden;margin-top:14px}.bar{height:100%;background:var(--accent);width:0;transition:width .2s}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:18px}.column h2{font-size:1rem;margin:0 0 10px;color:var(--muted)}
+.cards{display:grid;gap:9px}.tile{width:100%;text-align:left;min-height:58px;background:white;border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.35;transition:.12s}
+.tile:hover{border-color:#8ba99e}.tile.selected{outline:2px solid var(--accent);background:var(--accent2);border-color:var(--accent)}
+.tile.matched{background:#edf7f0;border-color:#a9d1b6;color:#285b3b;cursor:default}.tile.wrong{border-color:var(--bad);background:#fff1ef}
+.tile small{display:block;color:var(--muted);font-size:.72rem;margin-bottom:3px}.message{min-height:26px;color:var(--muted);font-weight:600;margin-top:12px}
+details summary{cursor:pointer;font-weight:700}.bank{width:100%;border-collapse:collapse;margin-top:12px;font-size:.9rem}.bank th,.bank td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.bank input{width:100%;min-width:100px}.bank .remove{padding:6px 9px}
+.return-link{display:inline-block;margin:0 0 16px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:white;color:var(--accent);text-decoration:none;font-weight:650}.return-link:hover{background:var(--accent2)}
+.note{font-size:.86rem;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:700px){.hero{display:block}.stats{margin:12px 0 0}.board{grid-template-columns:1fr}.tile{min-height:48px}}
+</style>
+</head>
+<body>
+<main>
+<a class="return-link" href="../index.html">← Back to BIO 106</a>
+<header class="hero"><div><h1>Taxa Matching</h1><p class="sub">Match each taxonomic group with its defining characteristics. Select a group on the left, then its description on the right. Each pair can be matched only once per round.</p></div></header>
+<section class="panel">
+<div class="controls">
+<div class="field"><label for="difficulty">ROUND SIZE</label><select id="difficulty"><option value="all">All pairs</option><option value="8">8 pairs</option><option value="12">12 pairs</option><option value="16">16 pairs</option></select></div>
+<div class="field"><label for="mode">ORDER</label><select id="mode"><option value="random">Randomized</option><option value="original">CSV order</option></select></div>
+<button class="primary" id="start">New round</button><button id="reset">Reset round</button>
+<div class="stats"><div class="stat"><b id="score">0 / 0</b><span>MATCHED</span></div><div class="stat"><b id="accuracy">—</b><span>ACCURACY</span></div><div class="stat"><b id="timer">00:00</b><span>TIME</span></div></div>
+</div><div class="progress"><div class="bar" id="bar"></div></div><div class="message" id="message" aria-live="polite">Choose a group, then choose its matching description.</div>
+</section>
+<section class="panel board">
+<div class="column"><h2>TAXONOMIC GROUP</h2><div class="cards" id="left"></div></div>
+<div class="column"><h2>CHARACTERISTICS</h2><div class="cards" id="right"></div></div>
+</section>
+<section class="panel"><details><summary>Teacher tools — edit or replace the question bank</summary>
+<p class="note">The game starts with the question bank embedded in this HTML file. You can edit pairs below for a local session, or import a revised CSV with columns named <code>left</code> and <code>right</code>. To make changes permanent for students, export the updated CSV and use it to regenerate the student HTML.</p>
+<div class="actions"><input type="file" id="csvFile" accept=".csv,text/csv"><button id="downloadCsv">Download current CSV</button><button id="addRow">Add pair</button><button id="applyBank" class="primary">Apply question bank</button></div>
+<div style="overflow-x:auto"><table class="bank"><thead><tr><th>Group</th><th>Characteristics</th><th></th></tr></thead><tbody id="bankBody"></tbody></table></div>
+<div class="actions"><button id="revert">Restore embedded bank</button></div>
+</details></section>
+<footer class="note">A teaching aid: taxonomic names and groupings reflect the terminology in the supplied question bank. Some traditional groupings are informal or not universally accepted as monophyletic.</footer>
+</main>
+<script>
+const embedded = [{"left": "Viruses", "right": "Acellular infectious agents; genetic material (DNA or RNA) in a protein capsid; reproduce only inside host cells"}, {"left": "Bacteria", "right": "Prokaryotic cells; usually have peptidoglycan in the cell wall; enormous metabolic diversity"}, {"left": "Archaea", "right": "Prokaryotic cells; cell walls lack bacterial peptidoglycan; distinctive membrane lipids; many metabolic types"}, {"left": "Protists (general grouping)", "right": "Informal grouping of diverse eukaryotes that are not land plants, animals, or fungi; mostly unicellular, with some multicellular forms; not a single natural lineage"}, {"left": "Marchantiophyta (liverworts)", "right": "Nonvascular land plants; gametophyte is dominant; often have flattened or leafy bodies; reproduce by spores"}, {"left": "Bryophyta (mosses)", "right": "Nonvascular land plants; gametophyte is dominant; leafy shoots with rhizoids; reproduce by spores"}, {"left": "Anthocerotophyta (hornworts)", "right": "Nonvascular land plants; gametophyte is dominant; sporophytes are elongated and hornlike"}, {"left": "Lycopodiophyta (lycophytes)", "right": "Vascular plants with microphylls (small leaves with a single unbranched vein); reproduce by spores"}, {"left": "Monilophyta (ferns and horsetails)", "right": "Seedless vascular plants; reproduce by spores; many have fronds that begin as coiled fiddleheads"}, {"left": "Cycadophyta (cycads)", "right": "Gymnosperms with large compound leaves; usually separate pollen- and ovule-producing plants; seeds are not enclosed in fruits"}, {"left": "Ginkgophyta (ginkgo)", "right": "Gymnosperm lineage represented today by Ginkgo biloba; fan-shaped leaves; seeds are not enclosed in fruits"}, {"left": "Pinophyta (conifers)", "right": "Gymnosperms such as pines, spruces, and cypresses; usually bear cones; seeds are not enclosed in fruits"}, {"left": "Gnetophyta", "right": "Gymnosperms including Ephedra, Gnetum, and Welwitschia; seeds are not enclosed in fruits"}, {"left": "Magnoliophyta (angiosperms)", "right": "Flowering plants; ovules are enclosed in carpels; seeds develop within fruits"}, {"left": "Chytridiomycota", "right": "Fungi that commonly produce motile, flagellated zoospores; many live in aquatic or moist environments"}, {"left": "Blastocladiomycota", "right": "Fungi with flagellated reproductive cells; many occur in freshwater or soil; some have alternation of generations"}, {"left": "Neocallimastigomycota", "right": "Anaerobic fungi found in digestive tracts of herbivores; help break down plant fiber; produce motile zoospores"}, {"left": "Mucoromycota", "right": "Includes many fast-growing molds and arbuscular mycorrhizal fungi; often form coenocytic hyphae"}, {"left": "Zoopagomycota", "right": "Fungi that include parasites or predators of small animals and other fungi; often have specialized host interactions"}, {"left": "Glomeromycota", "right": "Arbuscular mycorrhizal fungi; form nutrient-exchange associations with roots of many land plants"}, {"left": "Ascomycota (sac fungi)", "right": "Sexual spores (ascospores) form inside saclike asci; includes yeasts, morels, truffles, and many lichens"}, {"left": "Basidiomycota (club fungi)", "right": "Sexual spores (basidiospores) form on basidia; includes mushrooms, puffballs, rusts, and smuts"}, {"left": "Porifera (sponges)", "right": "Aquatic animals with porous bodies and water-flow canals; lack true tissues and organs; filter feeders"}, {"left": "Cnidaria", "right": "Aquatic animals with cnidocytes (stinging cells); radial or biradial organization; includes jellyfish, corals, and sea anemones"}, {"left": "Ctenophora (comb jellies)", "right": "Marine gelatinous animals that move using eight rows of ciliary comb plates; often have colloblasts for prey capture"}, {"left": "Platyhelminthes (flatworms)", "right": "Bilaterally symmetrical, dorsoventrally flattened animals; lack a body cavity; many are parasitic"}, {"left": "Annelida (segmented worms)", "right": "Bilaterally symmetrical worms with repeated body segments; includes earthworms, leeches, and polychaetes"}, {"left": "Mollusca", "right": "Animals typically with a muscular foot, visceral mass, and mantle; many have a shell and a radula"}, {"left": "Nematoda (roundworms)", "right": "Unsegmented, cylindrical worms with a complete digestive tract and a tough external cuticle; many are free-living or parasitic"}, {"left": "Arthropoda", "right": "Animals with jointed appendages, segmented bodies, and a chitinous exoskeleton that is periodically molted"}, {"left": "Echinodermata", "right": "Marine animals with a water vascular system and tube feet; adults usually have five-part radial symmetry"}, {"left": "Chordata", "right": "At some life stage possess a notochord, dorsal hollow nerve cord, pharyngeal slits or pouches, and a post-anal tail"}, {"left": "Cephalochordata (lancelets)", "right": "Chordate subphylum; retain the notochord along the body and into the head region throughout life; lack a vertebral column"}, {"left": "Tunicata (Urochordata; tunicates)", "right": "Chordate subphylum; larvae show chordate features; adults are usually sessile or planktonic filter feeders enclosed in a tunic"}, {"left": "Vertebrata (vertebrates)", "right": "Chordate subphylum; possess a cranium and typically a vertebral column; includes fishes, amphibians, reptiles, birds, and mammals"}];
+let bank = embedded.map(x=>({...x})), round=[], rightOrder=[], selected=null, matched=0, attempts=0, started=null, tick=null;
+const $=id=>document.getElementById(id);
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function elapsed(){if(!started)return 0;return Math.floor((Date.now()-started)/1000)}
+function clock(){let n=elapsed();$('timer').textContent=String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function begin(){clearInterval(tick);let n=$('difficulty').value;let base=$('mode').value==='random'?shuffle(bank):[...bank];round=base.slice(0,n==='all'?base.length:Math.min(+n,base.length));if($('mode').value==='random')round=shuffle(round);rightOrder=shuffle(round.map((x,i)=>({text:x.right,index:i})));matched=0;attempts=0;selected=null;started=Date.now();tick=setInterval(clock,500);clock();render()}
+function render(){
+ $('score').textContent=matched+' / '+round.length;$('accuracy').textContent=attempts?Math.round(matched/attempts*100)+'%':'—';$('bar').style.width=(round.length?matched/round.length*100:0)+'%';
+ $('left').innerHTML='';$('right').innerHTML='';
+ let rights=rightOrder;
+ round.forEach((x,i)=>{let b=document.createElement('button');b.className='tile'+(x.done?' matched':'')+(selected===i?' selected':'');b.disabled=!!x.done;b.innerHTML='<small>TERM</small>'+esc(x.left);b.onclick=()=>choose(i);$('left').append(b)});
+ rights.forEach(x=>{let b=document.createElement('button');b.className='tile'+(round[x.index].done?' matched':'');b.disabled=!!round[x.index].done;b.innerHTML='<small>DESCRIPTION</small>'+esc(x.text);b.onclick=()=>answer(x.index);$('right').append(b)});
+ if(matched===round.length){$('message').textContent='Excellent — all '+matched+' pairs matched in '+$('timer').textContent+'.';clearInterval(tick)}
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function choose(i){selected=i;$('message').textContent='Now select the matching description for '+round[i].left+'.';render()}
+function answer(i){if(selected===null){$('message').textContent='Choose a taxonomic group first.';return}attempts++;if(i===selected){round[i].done=true;matched++;$('message').textContent='Correct!';selected=null}else{$('message').textContent='Not quite — try another description.'}render()}
+function reset(){round.forEach(x=>x.done=false);matched=0;attempts=0;selected=null;started=Date.now();clearInterval(tick);tick=setInterval(clock,500);clock();$('message').textContent='Round reset. Have another go.';render()}
+function drawBank(){let body=$('bankBody');body.innerHTML='';bank.forEach((x,i)=>{let tr=document.createElement('tr');tr.innerHTML='<td><input aria-label="Taxon" value="'+esc(x.left)+'"></td><td><input aria-label="Characteristics" value="'+esc(x.right)+'"></td><td><button class="remove">Remove</button></td>';tr.querySelectorAll('input')[0].onchange=e=>bank[i].left=e.target.value;tr.querySelectorAll('input')[1].onchange=e=>bank[i].right=e.target.value;tr.querySelector('button').onclick=()=>{bank.splice(i,1);drawBank()};body.append(tr)})}
+function csvEscape(v){v=String(v??'');return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function parseCSV(text){let rows=[],row=[],v='',q=false;for(let i=0;i<text.length;i++){let c=text[i];if(q){if(c==='"'&&text[i+1]==='"'){v+='"';i++}else if(c==='"')q=false;else v+=c}else if(c==='"')q=true;else if(c===','){row.push(v);v=''}else if(c==='\n'){row.push(v);rows.push(row);row=[];v=''}else if(c!=='\r')v+=c}if(v.length||row.length){row.push(v);rows.push(row)}let h=rows.shift()?.map(s=>s.trim().replace(/^\uFEFF/,''))||[];let li=h.indexOf('left'),ri=h.indexOf('right');if(li<0||ri<0)throw Error('CSV needs left and right column headers.');return rows.map(r=>({left:(r[li]||'').trim(),right:(r[ri]||'').trim()})).filter(x=>x.left&&x.right)}
+$('start').onclick=begin;$('reset').onclick=reset;$('addRow').onclick=()=>{bank.push({left:'New taxon',right:'Description'});drawBank()};
+$('applyBank').onclick=()=>{bank=bank.filter(x=>x.left.trim()&&x.right.trim());begin();drawBank();$('message').textContent='Question bank applied.'};
+$('revert').onclick=()=>{bank=embedded.map(x=>({...x}));drawBank();begin()};
+$('csvFile').onchange=async e=>{let file=e.target.files[0];if(!file)return;try{bank=parseCSV(await file.text());drawBank();$('message').textContent='Imported '+bank.length+' pairs. Select Apply question bank to use them.'}catch(err){alert(err.message)}e.target.value=''};
+$('downloadCsv').onclick=()=>{let content='left,right\n'+bank.map(x=>csvEscape(x.left)+','+csvEscape(x.right)).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));a.download='taxa_matching.csv';a.click();URL.revokeObjectURL(a.href)};
+drawBank();begin();
+</script></body></html>

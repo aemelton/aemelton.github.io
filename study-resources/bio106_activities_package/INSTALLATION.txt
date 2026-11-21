@@ -1,0 +1,24 @@
+BIO 106 ACTIVITY FILES
+
+Copy the contents of the study-resources folder in this package into the
+matching study-resources folder in your aemelton.github.io repository.
+Allow the existing bio106/index.html to be overwritten only if you want to
+replace it; this package intentionally contains only the activity files and
+taxa CSV, not the course landing page.
+
+Expected destination paths:
+
+study-resources/bio106/taxa_matching.csv
+study-resources/bio106/activities/taxa_matching.html
+study-resources/bio106/activities/anatomy/index.html
+study-resources/bio106/activities/anatomy/anatomy_data.json
+study-resources/bio106/activities/anatomy/figures/Porifera_ConceptsofBiology-WEB.png
+
+The Taxa Matching activity includes the 35-pair question bank and teacher tools.
+The Anatomy activity currently includes the supplied Porifera figure and offers
+both phylum-identification and figure-labeling modes. Additional figures can be
+added to anatomy_data.json and the figures folder as they are provided.
+
+After copying, commit and push the files to the main branch. Then test:
+https://aemelton.github.io/study-resources/bio106/activities/taxa_matching.html
+https://aemelton.github.io/study-resources/bio106/activities/anatomy/

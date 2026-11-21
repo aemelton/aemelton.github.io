@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anatomy Figure Labeling Practice</title>
+<style>
+:root{--green:#315b45;--sage:#e8efe9;--paper:#fbfaf6;--ink:#25312a;--muted:#68736c;--line:#d8ded8;--good:#e5f3e8;--bad:#fae9e6}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+header{background:var(--green);color:white;padding:1.4rem max(1rem,calc((100% - 1100px)/2))}header h1{margin:0;font-size:clamp(1.4rem,3vw,2rem)}header p{margin:.2rem 0 0;color:#e8efe9}.return-link{display:inline-block;margin-top:.8rem;padding:.4rem .7rem;border:1px solid #c8d8cc;border-radius:.6rem;color:white;text-decoration:none;font-weight:650}.return-link:hover{background:#426c54}
+main{max-width:1100px;margin:1.5rem auto;padding:0 1rem 3rem}.toolbar{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+button,select{font:inherit;border:1px solid var(--line);border-radius:.6rem;padding:.65rem .85rem;background:white;color:var(--ink);cursor:pointer}
+button:hover:not(:disabled){background:var(--sage);border-color:var(--green)}button:disabled{opacity:.65;cursor:not-allowed}
+button:focus-visible,select:focus-visible{outline:3px solid #91b69b;outline-offset:2px}.primary{background:var(--green);color:white;border-color:var(--green);font-weight:650}
+.status{margin-left:auto;color:var(--muted);font-size:.92rem}.panel{background:white;border:1px solid var(--line);border-radius:1rem;padding:1.1rem}
+h2{font-size:1.2rem;margin:.1rem 0 .25rem}.sub,.small{color:var(--muted)}.sub{margin:.1rem 0 1rem}
+.workspace{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:1rem;align-items:start}
+.figure-wrap{border:1px solid var(--line);border-radius:.75rem;padding:.65rem;display:flex;justify-content:center;align-items:center;min-height:320px}
+.figure-wrap img{max-width:100%;max-height:70vh;object-fit:contain}.letter-grid,.term-list{display:grid;gap:.55rem;margin-top:.8rem}
+.letter-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.letter-btn{font-size:1.1rem;font-weight:750;min-height:48px}
+.term-btn{text-align:left;min-height:48px}.selected{background:#e5edf7!important;border:2px solid #54769d!important}.used{background:var(--sage)}
+.correct{background:var(--good)!important;border-color:#6eaa7a!important}.incorrect{background:var(--bad)!important;border-color:#c77c70!important}
+.phylum-choice{text-align:left;min-height:48px}.phylum-choice.selected{background:#e5edf7;border:2px solid #54769d}
+.instructions,.feedback{padding:.8rem;border-radius:.65rem}.instructions{background:var(--sage);margin-bottom:.9rem}.feedback{background:#f2f4f2;margin-top:1rem}.feedback.good{background:var(--good)}.feedback.bad{background:var(--bad)}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}.explanations{border-top:1px solid var(--line);margin-top:.9rem;padding-top:.7rem}.explanation{padding:.5rem 0;border-bottom:1px solid #edf0ed}
+footer{max-width:1100px;margin:auto;padding:0 1rem 2rem;color:var(--muted);font-size:.85rem}
+@media(max-width:760px){.workspace{grid-template-columns:1fr}.status{margin-left:0;width:100%}.figure-wrap{min-height:240px}.figure-wrap img{max-height:55vh}}
+</style></head>
+<body>
+<header><h1>Anatomy Figure Labeling Practice</h1><p>Match each anatomical term to the letter that identifies it.</p><a class="return-link" href="../../index.html">← Back to BIO 106</a></header>
+<main>
+<div class="toolbar"><label for="figureSelect"><strong>Figure:</strong></label><select id="figureSelect"></select><button id="randomFigureBtn" type="button">Random figure</button><label for="modeSelect"><strong>Practice mode:</strong></label><select id="modeSelect"><option value="label">Label a figure</option><option value="phylum">Identify the phylum</option></select><button id="shuffleBtn" type="button">Shuffle terms</button><span class="status" id="progress" aria-live="polite"></span></div>
+<section class="panel" id="labelPanel"><h2 id="figureTitle">Loading figure…</h2><p class="sub" id="figureMeta"></p>
+<div class="workspace"><div><div class="figure-wrap"><img id="figureImage" alt="Anatomical figure with lettered labels"></div>
+<p class="small">Select a term, then select its matching letter.</p><div class="letter-grid" id="letterGrid"></div></div>
+<aside><div class="instructions"><strong>How to play:</strong> Select an anatomical term, then select the corresponding letter on the figure. You can change matches until you check your answers.</div>
+<h2>Anatomical terms</h2><div class="term-list" id="termList"></div>
+<div class="actions"><button class="primary" id="checkBtn" type="button">Check answers</button><button id="resetBtn" type="button">Try again</button></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite">Choose a term to begin.</div><div id="explanations" class="explanations" hidden></div></aside></div></section>
+<section class="panel" id="phylumPanel" hidden><h2 id="phylumFigureTitle">Identify the phylum</h2><p class="sub" id="phylumFigureMeta"></p><div class="workspace"><div><div class="figure-wrap"><img id="phylumFigureImage" alt="Instructor-provided organismal figure"></div></div><aside><div class="instructions"><strong>How to play:</strong> Examine the figure and choose the phylum that best describes the organism.</div><h2>Which phylum?</h2><div class="term-list" id="phylumChoices"></div><div class="actions"><button class="primary" id="checkPhylumBtn" type="button">Check answer</button><button id="newPhylumQuestionBtn" type="button">Try another figure</button></div><div id="phylumFeedback" class="feedback" role="status" aria-live="polite">Choose a phylum to begin.</div></aside></div></section>
+</main>
+<footer>Practice activity • Instructor-provided figures and terminology</footer>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),s={data:null,figure:null,selected:null,matches:{},checked:false,terms:[]};
+const labels=()=>s.figure.labels||[];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function clearFeedback(){$("feedback").className="feedback";$("feedback").textContent=s.selected?"Now select the corresponding letter.":"Select a term to begin."; $("explanations").hidden=true;$("explanations").replaceChildren()}
+function progress(){$("progress").textContent=`${Object.keys(s.matches).length} of ${labels().length} labels matched`}
+function renderTerms(){
+$("termList").replaceChildren();
+s.terms.forEach(item=>{let b=document.createElement("button");b.type="button";b.className="term-btn";b.textContent=item.term;
+if(s.selected===item.letter)b.classList.add("selected");if(Object.values(s.matches).includes(item.letter))b.classList.add("used");
+b.disabled=s.checked;b.onclick=()=>{s.selected=item.letter;renderTerms()};$("termList").append(b)});
+[...$("letterGrid").children].forEach((b,i)=>{
+ let l=labels()[i],v=s.matches[l.letter];
+ let hasMatch=Object.prototype.hasOwnProperty.call(s.matches,l.letter);
+ // Never highlight the answer just because its term was selected.
+ b.classList.remove("selected");
+ b.classList.toggle("used",hasMatch&&!s.checked);
+ b.classList.toggle("correct",s.checked&&hasMatch&&v===l.letter);
+ b.classList.toggle("incorrect",s.checked&&hasMatch&&v!==l.letter);
+ b.disabled=s.checked
+});
+}
+function renderFigure(){
+let f=s.figure;$("figureTitle").textContent=f.title||f.id;$("figureMeta").textContent=f.phylum?`Phylum: ${f.phylum}`:"";
+$("figureImage").src=f.file;$("figureImage").alt=`${f.title||f.id}, labels ${labels().map(x=>x.letter).join(", ")}`;
+$("figureImage").onerror=()=>$("figureMeta").textContent="Image could not load. Check the image path in the JSON.";
+$("letterGrid").replaceChildren();labels().forEach(l=>{let b=document.createElement("button");b.type="button";b.className="letter-btn";b.textContent=l.letter;b.setAttribute("aria-label",`Label ${l.letter}`);b.onclick=()=>chooseLetter(l.letter);$("letterGrid").append(b)});
+renderTerms();progress();clearFeedback();
+}
+function chooseLetter(letter){
+if(s.checked)return;if(!s.selected){$("feedback").textContent="Select an anatomical term first.";return}
+Object.keys(s.matches).forEach(k=>{if(s.matches[k]===s.selected)delete s.matches[k]});
+s.matches[letter]=s.selected;s.selected=null;renderTerms();progress();clearFeedback();
+}
+function reset(){s.matches={};s.selected=null;s.checked=false;s.terms=shuffle(labels());renderTerms();progress();clearFeedback()}
+function changeFigure(id){let f=s.data.figures.find(x=>x.id===id);if(!f)return;s.figure=f;reset();renderFigure()}
+function check(){
+let a=labels(),n=a.filter(x=>s.matches[x.letter]===x.letter).length;s.checked=true;renderTerms();
+$("feedback").className="feedback "+(n===a.length?"good":"bad");
+let strong=document.createElement("strong");strong.textContent=`${n} of ${a.length} correct (${Math.round(n/a.length*100)}%).`;
+let p=document.createElement("p");p.textContent=n===a.length?"Excellent work! All labels are correct.":"Review the highlighted letters and answer key, then try again.";$("feedback").replaceChildren(strong,p);
+let box=$("explanations");box.hidden=false;box.replaceChildren();let h=document.createElement("h3");h.textContent="Answer key";box.append(h);
+a.forEach(x=>{let row=document.createElement("div");row.className="explanation";let name=document.createElement("strong");name.textContent=`${x.letter}: ${x.term}`;row.append(name);if(x.explanation){let d=document.createElement("p");d.className="small";d.textContent=x.explanation;row.append(d)}box.append(row)});
+}
+
+const phylumChoices = [
+  "Porifera", "Cnidaria", "Ctenophora", "Platyhelminthes", "Annelida",
+  "Mollusca", "Nematoda", "Arthropoda", "Echinodermata", "Chordata"
+];
+let selectedPhylum = null;
+let phylumOptions = [];
+function showMode() {
+  const isPhylum = $("modeSelect").value === "phylum";
+  $("labelPanel").hidden = isPhylum;
+  $("phylumPanel").hidden = !isPhylum;
+  if (isPhylum) renderPhylumQuestion();
+}
+function renderPhylumQuestion() {
+  if (!s.figure) return;
+  selectedPhylum = null;
+  const f = s.figure;
+  $("phylumFigureTitle").textContent = f.title || f.id;
+  $("phylumFigureMeta").textContent = f.phylum ? "Examine the figure and identify its phylum." : "No phylum has been specified for this figure yet.";
+  $("phylumFigureImage").src = f.file;
+  $("phylumFigureImage").alt = `${f.title || f.id}; identify the phylum`;
+  const correct = f.phylum;
+  const pool = phylumChoices.filter(p => p !== correct);
+  const distractors = shuffle(pool).slice(0, 3);
+  phylumOptions = shuffle([correct, ...distractors]);
+  const list = $("phylumChoices");
+  list.replaceChildren();
+  phylumOptions.forEach(phylum => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "phylum-choice";
+    b.textContent = phylum;
+    b.onclick = () => {
+      selectedPhylum = phylum;
+      [...list.children].forEach(choice => choice.classList.toggle("selected", choice === b));
+      $("phylumFeedback").className = "feedback";
+      $("phylumFeedback").textContent = `Selected: ${phylum}. Check your answer when ready.`;
+    };
+    list.append(b);
+  });
+  $("phylumFeedback").className = "feedback";
+  $("phylumFeedback").textContent = "Choose a phylum to begin.";
+}
+function checkPhylum() {
+  if (!selectedPhylum) {
+    $("phylumFeedback").textContent = "Choose a phylum first.";
+    return;
+  }
+  const correct = selectedPhylum === s.figure.phylum;
+  $("phylumFeedback").className = `feedback ${correct ? "good" : "bad"}`;
+  $("phylumFeedback").textContent = correct
+    ? `Correct! ${s.figure.phylum} is the phylum shown.`
+    : `Not quite. The correct answer is ${s.figure.phylum}. Try another figure or switch to labeling practice.`;
+}
+function randomFigure() {
+  if (!s.data || s.data.figures.length < 2) {
+    $("phylumFeedback").textContent = "Only one figure is currently loaded. Add more figures to anatomy_data.json to use random figure selection.";
+    return;
+  }
+  const choices = s.data.figures.filter(f => f.id !== s.figure.id);
+  const next = choices[Math.floor(Math.random() * choices.length)];
+  $("figureSelect").value = next.id;
+  changeFigure(next.id);
+  if ($("modeSelect").value === "phylum") renderPhylumQuestion();
+}
+
+async function init(){try{
+let r=await fetch("anatomy_data.json");if(!r.ok)throw Error(`Could not load anatomy_data.json (${r.status})`);
+s.data=await r.json();if(!Array.isArray(s.data.figures)||!s.data.figures.length)throw Error("The JSON needs a non-empty figures array.");
+s.data.figures.forEach(f=>{let o=document.createElement("option");o.value=f.id;o.textContent=f.title||f.id;$("figureSelect").append(o)});
+$("figureSelect").onchange=()=>{changeFigure($("figureSelect").value);if($("modeSelect").value==="phylum")renderPhylumQuestion()};$("modeSelect").onchange=showMode;$("randomFigureBtn").onclick=randomFigure;$("newPhylumQuestionBtn").onclick=randomFigure;$("checkPhylumBtn").onclick=checkPhylum;$("shuffleBtn").onclick=()=>{s.terms=shuffle(labels());renderTerms()};
+$("checkBtn").onclick=check;$("resetBtn").onclick=reset;changeFigure(s.data.figures[0].id);showMode();
+}catch(e){$("figureTitle").textContent="Unable to load the activity";$("figureMeta").textContent=e.message;$("feedback").textContent="Keep index.html, anatomy_data.json, and the figures folder together. Use GitHub Pages or a local web server; opening the HTML directly may prevent the JSON from loading."}}
+init();
+})();
+</script></body></html>

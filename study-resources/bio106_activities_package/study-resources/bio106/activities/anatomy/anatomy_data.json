@@ -1,0 +1,32 @@
+{
+  "figures": [
+    {
+      "id": "Porifera",
+      "title": "Generalized Porifera Anatomy",
+      "file": "figures/Porifera_ConceptsofBiology-WEB.png",
+      "phylum": "Porifera",
+      "labels": [
+        {
+          "letter": "A",
+          "term": "Mesohyl",
+          "explanation": "An acellular space between inner and outer cell layers."
+        },
+        {
+          "letter": "B",
+          "term": "Osculum",
+          "explanation": "Large opening of the sponge body."
+        },
+        {
+          "letter": "C",
+          "term": "Ostia",
+          "explanation": "Small pores through which water enters the sponge body cavity."
+        },
+        {
+          "letter": "D",
+          "term": "Spongocoel",
+          "explanation": "Central cavity of the sponge body."
+        }
+      ]
+    }
+  ]
+}
