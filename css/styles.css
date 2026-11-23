@@ -50,4 +50,10 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   .hero { grid-template-columns: 1fr; gap: 18px; }
   .portrait-placeholder { max-width: 200px; }
   .cards { grid-template-columns: 1fr; }
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+}
 }
