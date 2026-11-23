@@ -46,7 +46,26 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .section { border-top: 1px solid var(--line); padding: 38px 0; }
 .section-intro { max-width: 760px; color: var(--muted); }
 .cards { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; margin-top: 24px; }
-.card { background: white; border: 1px solid var(--line); border-radius: 7px; padding: 22px; }
+.card {
+  background: #f1f4ef;
+  border: 1px solid #e1e5df;
+  border-radius: 7px;
+  padding: 22px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card:nth-child(odd) {
+  background: #e8eee6;
+}
+
+.card:nth-child(even) {
+  background: #f7f9f5;
+}
+
+.card:hover {
+  background: #dce7dc;
+  transform: translateY(-2px);
+}
 .card p { margin: 0; color: var(--muted); }
 .card-link { display: inline-block; margin-top: 14px; font-weight: 650; }
 .pill { display: inline-block; background: var(--soft); color: var(--green-dark); border-radius: 99px; padding: 4px 11px; font-size: .78rem; margin: 4px 5px 4px 0; }
