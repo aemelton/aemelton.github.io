@@ -23,9 +23,22 @@ a:hover { color: var(--green); }
 nav { display: flex; gap: 22px; flex-wrap: wrap; }
 nav a { text-decoration: none; font-size: .95rem; font-weight: 600; }
 main { padding: 54px 0 70px; }
-.hero { display: grid; grid-template-columns: 220px 1fr; gap: 36px; align-items: center; padding-bottom: 46px; }
-.portrait-placeholder { aspect-ratio: 3/4; border-radius: 5px; background: linear-gradient(145deg, #e6eae3, #d4ddd3); display: grid; place-items: center; color: #657367; text-align: center; padding: 16px; font-size: .9rem; }
-.eyebrow { text-transform: uppercase; color: var(--green); letter-spacing: .12em; font-weight: 700; font-size: .76rem; }
+.hero {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 28px;
+  align-items: center;
+  padding-bottom: 46px;
+}
+
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}.eyebrow { text-transform: uppercase; color: var(--green); letter-spacing: .12em; font-weight: 700; font-size: .76rem; }
 h1 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.15; margin: 8px 0 14px; letter-spacing: -.035em; }
 h2 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 18px; }
 h3 { font-size: 1.1rem; margin: 0 0 8px; }
@@ -44,18 +57,30 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .cv-frame { width: 100%; height: min(78vh, 900px); border: 1px solid var(--line); background: white; border-radius: 5px; }
 .note { background: #fff8e8; border-left: 4px solid #d8aa4c; padding: 14px 18px; color: #6e5a30; border-radius: 3px; margin: 18px 0; }
 @media (max-width: 700px) {
-  .header-inner { align-items: flex-start; flex-direction: column; }
-  nav { gap: 15px; }
-  main { padding-top: 34px; }
-  .hero { grid-template-columns: 1fr; gap: 18px; }
-  .portrait-placeholder { max-width: 200px; }
-  .cards { grid-template-columns: 1fr; }
-.hero img.profile-photo {
-  width: 140px;
-  height: 140px;
-  max-width: 140px;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
+  .header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  main {
+    padding-top: 34px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
 }
