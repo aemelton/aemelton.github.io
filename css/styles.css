@@ -32,8 +32,8 @@ main { padding: 54px 0 70px; }
 }
 
 .profile-photo {
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 160px;
   max-width: 100%;
   object-fit: cover;
   border-radius: 50%;
