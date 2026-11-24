@@ -32,11 +32,11 @@ main { padding: 54px 0 70px; }
 }
 
 .profile-photo {
-  width: 160px;
-  height: 160px;
+  width: 140px;
+  height: 140px;
   max-width: 100%;
   object-fit: cover;
-  border-radius: 33%;
+  border-radius: 25%;
   display: block;
 }.eyebrow { text-transform: uppercase; color: var(--green); letter-spacing: .12em; font-weight: 700; font-size: .76rem; }
 h1 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.15; margin: 8px 0 14px; letter-spacing: -.035em; }
